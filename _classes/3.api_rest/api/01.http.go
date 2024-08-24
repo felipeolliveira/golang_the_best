@@ -1,4 +1,4 @@
-package api_rest
+package api
 
 import (
 	"context"

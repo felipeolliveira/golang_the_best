@@ -1,4 +1,4 @@
-package api_rest
+package api
 
 import (
 	"crypto/tls"
@@ -19,7 +19,7 @@ func newServer() *http.Server {
 
 	return &http.Server{
 		Addr:                         ":8080", // Addr: ":8080", comum para desenvolvimento
-		Handler:                      LogMiddleware(mux),
+		Handler:                      logMiddleware(mux),
 		DisableGeneralOptionsHandler: false,
 		TLSConfig:                    &tls.Config{},
 		ReadTimeout:                  10 * time.Second,
@@ -60,7 +60,7 @@ func createRoutes(mux *http.ServeMux) {
 /*
 - Middlewares podem ser usados através de uma HOC (High Order Component) para interceptar as requisições.
 */
-func LogMiddleware(next http.Handler) http.Handler {
+func logMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		begin := time.Now()
 		next.ServeHTTP(w, r)
