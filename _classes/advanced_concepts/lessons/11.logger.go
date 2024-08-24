@@ -1,4 +1,4 @@
-package advanced_concepts
+package lessons
 
 import (
 	"context"

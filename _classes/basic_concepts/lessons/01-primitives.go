@@ -1,4 +1,4 @@
-package basic_concepts
+package lessons
 
 import "fmt"
 

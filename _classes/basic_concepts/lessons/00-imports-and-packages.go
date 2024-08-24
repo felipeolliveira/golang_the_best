@@ -17,7 +17,7 @@
     ├ 	├- b.go                     // pode usar o pacote interno
     └- main.go                      // não pode usar o pacote interno
 */
-package basic_concepts
+package lessons
 
 /*
 	- Importação padrão de pacotes, onde o nome do pacote já é a importação: "basic_concepts"
