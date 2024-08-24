@@ -17,7 +17,8 @@ This repository serves to accumulate knowledge about the Go language through stu
 ├── _classes/ 
 │   ├── basic concepts
 │   ├── advanced concepts
-│   └── tools 
+│   ├── api rest 
+│   └── databases
 ├── _classes_projects/
 │   └── projects that improve the understanding of concepts
 └── _challenges/
