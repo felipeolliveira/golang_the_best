@@ -112,6 +112,9 @@ func selectAllProducts(ctx context.Context, conn *pgxpool.Pool) []product {
 }
 
 func main() {
+	/*
+		o pgx/v5 por padrão já usa obriga o contexto
+	*/
 	ctx := context.Background()
 	conn := connectToBD(ctx)
 
