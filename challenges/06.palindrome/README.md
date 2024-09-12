@@ -14,13 +14,23 @@ O projeto está organizado da seguinte forma:
 - `input.go`: Contém a função `scanUserInput` que lê a entrada do usuário.
 - `sanitize_string.go`: Contém a função `sanitizeString` que normaliza e sanitiza a string de entrada.
 
-## Como Executar
+## Como Executar o binário
+Compilei o programa para **Windows** e **Linux**
+```sh
+# Linux
+./is_palindrome_amd64
+
+#Windows 64 bits
+./is_palindrome_win64.exe
+```
+
+## Como Executar o Projeto
 
 1. Certifique-se de ter o Go instalado.
 2. Navegue até o diretório challenges/06.palindrome/.
 3. Execute o comando:
 ```go
-go run main.go
+go run .
 ```
 4. Siga as instruções no terminal para inserir uma string e verificar se é um palíndromo.
 
