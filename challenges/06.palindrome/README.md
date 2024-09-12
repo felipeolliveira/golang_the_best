@@ -1,4 +1,4 @@
-# Palindrome Checker
+# Palindrome Checker (Spacelaxy Challenge)
 
 Este projeto é um verificador de palíndromos que permite ao usuário inserir uma palavra, frase ou sequência de números e verificar se é um palíndromo.
 
