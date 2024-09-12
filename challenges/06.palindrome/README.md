@@ -29,7 +29,11 @@ Compilei o programa para **Windows** e **Linux**
 1. Certifique-se de ter o Go instalado.
 2. Navegue até o diretório challenges/06.palindrome/.
 3. Execute o comando:
-```go
+```sh
+# instalar as dependencias caso não tenha
+go mod tidy
+
+# executar o programa
 go run .
 ```
 4. Siga as instruções no terminal para inserir uma string e verificar se é um palíndromo.
