@@ -34,10 +34,10 @@ func main() {
 		fmt.Printf("Você gostaria de tentar outra palavra? (Y/n): ")
 		input = strings.ToLower(scanUserInput())
 
-		if input == "n" || input != "" {
-			break
+		if input == "y" || input == "" {
+			continue
 		}
 
-		continue
+		break
 	}
 }
