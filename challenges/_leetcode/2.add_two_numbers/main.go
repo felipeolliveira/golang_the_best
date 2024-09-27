@@ -1,23 +1,5 @@
 package main
 
-import "fmt"
-
-func main() {
-	l1 := ListNode{Val: 1, Next: &ListNode{Val: 9, Next: &ListNode{Val: 9, Next: &ListNode{Val: 7}}}}
-	l2 := ListNode{Val: 4, Next: &ListNode{Val: 9, Next: &ListNode{Val: 9, Next: &ListNode{Val: 5}}}}
-	// [1,9,9,7]
-	// [4,9,9,5]
-	// [5,8,9,3,1]
-
-	v := addTwoNumbers(&l1, &l2)
-
-	fmt.Printf("\nresult:")
-	for v.Next != nil {
-		fmt.Printf("%v", v.Val)
-		v = v.Next
-	}
-}
-
 /**
  * Definition for singly-linked list.
  */
@@ -26,6 +8,9 @@ type ListNode struct {
 	Next *ListNode
 }
 
+// You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+
+// You may assume the two numbers do not contain any leading zero, except the number 0 itself.
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	result := &ListNode{}
 	currentResult := result
