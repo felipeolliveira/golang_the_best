@@ -12,6 +12,12 @@ func Primitives() {
 	// Podem ser concatenadas com o operador `+`
 	fmt.Println("go" + "lang")
 
+	// Strings podem ser definidas como literal ou raw
+	// - Literal: será interpretado
+	// - Raw: não será interpretado, mostrando o texto cru
+	fmt.Println("is literal\n is\t literal")
+	fmt.Println(`is literal\n is\t literal`)
+
 	// Inteiros e Flutuantes
 	// Podem ser manipulados com operadores aritméticos normalmente
 	fmt.Println("1+1 =", 1+1)
