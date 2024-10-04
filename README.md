@@ -8,7 +8,7 @@ This repository serves to accumulate knowledge about the Go language through stu
   - [Go Effective](https://go.dev/doc/effective_go): Explains some things that are not in `Go By Example`
 - [Full Documentation](https://go.dev/doc/)
   - [Tutorial: Getting started](https://go.dev/doc/tutorial/getting-started): It's really "Getting started"
-
+- [My Leetcode](https://leetcode.com/u/felipeolliveira/): I am adding challenges from the most basic to the most complex
 
 # Folders
 
@@ -22,6 +22,8 @@ This repository serves to accumulate knowledge about the Go language through stu
 ├── _classes_projects/
 │   └── projects that improve the understanding of concepts
 └── _challenges/
+    ├── _leetcode/
+    │   └── leetcode challenges to practice programming logic
     └── projects closer to real ones for training
 ```
 
