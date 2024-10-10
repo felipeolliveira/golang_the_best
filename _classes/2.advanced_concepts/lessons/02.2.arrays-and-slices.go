@@ -4,6 +4,12 @@ import "fmt"
 
 func ArraysAndSlices() {
 	/*
+		- Arrays tem tamanho fixo em memória, mas Slice pode ser dinâmico e fixo.
+
+		- Slice nada mais é que um ponteiro para um array que apenas mostra o valor de uma fatia (slice).
+			arr[<min>:<max>] -> min é o índice inicial (inclusivo) e max é o índice final (não inclusivo).
+			Esses limites que delimitam o slice não são obrigatórios pois inicial com o valor 0 e final com o tamanho do array `len(arr)`.
+
 		- Slices com 3 indices podem manipular o tamanho e a capacidade do array subjacente.
 			O primeiro índice é o índice inicial do slice.
 			O segundo índice é o índice final do slice.
@@ -57,6 +63,20 @@ func ArraysAndSlices() {
 
 	fmt.Println(arrayToChange) // [1 2 3]
 	fmt.Println(sliceToChange) // [100 2 3]
+
+	/*
+		Cuidado com o append em slices, pois ele pode alterar o array subjacente.
+		Se o slice não tiver capacidade suficiente para adicionar um novo elemento, um novo array será criado e o slice apontará para o novo array.
+	*/
+	newSlice := []int{1, 2, 3, 4, 5}
+	fmt.Println(newSlice) // [1 2 3 4 5]
+
+	secondSlice := append(newSlice[:2], newSlice[4:]...)
+
+	// O array subjacente foi alterado, pois o segundo slice aponta para o mesmo array do primeiro slice.
+	// O segundo slice omite os indices 3 e 4, pois os slice mostra apenas os valores de interesse, mas o array subjacente sofreu alteração.
+	fmt.Println(newSlice)    // [1 2 5 4 5]
+	fmt.Println(secondSlice) // [1 2 5]
 }
 
 func changeSlice(slice []int) {

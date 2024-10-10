@@ -55,6 +55,7 @@ func ForLoops() {
 		}
 		fmt.Println("Odd:", n)
 	}
+
 	for {
 		fmt.Println("break a loop with word `break`")
 		break

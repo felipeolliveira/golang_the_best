@@ -24,6 +24,8 @@ const typedStringConst string = "constante de string (typed)"
     isso significa que o tipo não é estrito e pode ser usado em qualquer lugar que aceite um tipo compatível,
     como um rune ou byte nesse caso.
     Exemplo: `const pi = 3.14` pode ser usado em lugares que exijam qualquer float, sem problemas.
+
+- O tipo da contante é atribuido apenas no tempo de compilação
 */
 const untypedStringConst = "constante de string (untyped)"
 

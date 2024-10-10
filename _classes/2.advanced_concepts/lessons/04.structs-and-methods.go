@@ -90,7 +90,7 @@ func StructsAndMethods() {
 	john3 := Person{ID: 3, Name: "John Doe"} // Age = 0
 	julia := Person{ID: 4, Name: "Júlia Carminatti Ferrari", Age: 29}
 	johnDev := Developer{
-		Person:   Person{ID: 5, Name: "John Doe", Age: 30},
+		Person:   john,
 		Language: "Go",
 	}
 	johnWithTags := UserWithTags{ID: 1, Name: "John Doe", Age: 30}
@@ -99,10 +99,25 @@ func StructsAndMethods() {
 	john.SetName("John Smith") // Name: John Smith
 
 	fmt.Println(john, john2, john3, johnDev)
+	// O campo Name é embbeded na struct Developer, ou seja, a propriedade Name é acessível diretamente na struct Developer.
+	fmt.Println(johnDev.Name)
 	fmt.Println(julia)
 
 	johnWithTagsJson, _ := json.Marshal(johnWithTags)
 	johnJson, _ := json.Marshal(john)
 	fmt.Println(string(johnWithTagsJson)) // {"id":1,"name":"John Doe","age":30}
 	fmt.Println(string(johnJson))         // {"ID":1,"Name":"John Doe","Age":30}
+
+	/*
+		É possivel contruir structs anônimas, que são structs sem nome.
+	*/
+	anonymousStruct := struct {
+		ID   uint
+		Name string
+	}{
+		ID:   1,
+		Name: "John Doe",
+	}
+
+	fmt.Println(anonymousStruct)
 }

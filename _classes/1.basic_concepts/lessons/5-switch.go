@@ -31,6 +31,7 @@ func Switch() {
 
 	/*
 		- Pode ser usado sem condição inicial, como se estivesse usando um if/else
+			A condição(statement) inicial é true por padrão
 	*/
 	switch { // sem condição
 	case numA == 1:
@@ -74,4 +75,15 @@ func Switch() {
 	whatAmI(1)
 	whatAmI("string")
 
+	// Em Go há um statement chamado `fallthrough` que faz com que o switch continue a execução para o próximo case
+	// mesmo que o case atual seja verdadeiro.
+	// O `fallthrough` é uma palavra reservada e não precisa de argumentos.
+	// O `fallthrough` só pode ser usado no final do case.
+	switch {
+	case numA == 1:
+		fmt.Println("one")
+		fallthrough
+	case numA == 2:
+		fmt.Println("two")
+	}
 }

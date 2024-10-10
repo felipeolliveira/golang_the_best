@@ -4,7 +4,6 @@ import "github.com/felipeolliveira/golang_the_best/_classes/advanced_concepts/le
 
 func main() {
 	lessons.Pointers()
-	lessons.Arrays()
 	lessons.ArraysAndSlices()
 	lessons.Maps()
 	lessons.StructsAndMethods()
