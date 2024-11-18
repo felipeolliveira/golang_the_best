@@ -1,0 +1,37 @@
+services:
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    ports:
+      - ${GOBID_DATABASE_PORT:-5432}:5432
+    environment:
+      POSTGRES_USER: ${GOBID_DATABASE_USER} 
+      POSTGRES_PASSWORD: ${GOBID_DATABASE_PASSWORD} 
+      POSTGRES_DB: ${GOBID_DATABASE_NAME}
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - local-net
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    restart: unless-stopped
+    ports:
+      - 54321:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: local@local.com
+      PGADMIN_DEFAULT_PASSWORD: local
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    depends_on:
+      - db
+    networks:
+      - local-net
+
+volumes:
+  db:
+    driver: local
+  pgadmin:
+    driver: local
+
+networks:
+  local-net:
