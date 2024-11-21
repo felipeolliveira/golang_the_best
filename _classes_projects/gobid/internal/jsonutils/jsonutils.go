@@ -35,7 +35,7 @@ func DecodeValidJson[T validator.Validator](r *http.Request) (T, map[string]stri
 	var data T
 
 	if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
-		return data, nil, fmt.Errorf("failed to decode json: %w", err)
+		return data, map[string]string{}, fmt.Errorf("failed to decode json: %w", err)
 	}
 
 	if problems := data.Valid(r.Context()); len(problems) > 0 {
