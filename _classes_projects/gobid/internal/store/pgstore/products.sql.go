@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const createProduct = `-- name: CreateProduct :one
@@ -18,7 +17,7 @@ INSERT INTO products (
   seller_id,
   product_name,
   description,
-  base_price,
+  base_price_in_cents,
   auction_end
 )
 VALUES ($1, $2, $3, $4, $5)
@@ -26,11 +25,11 @@ RETURNING id
 `
 
 type CreateProductParams struct {
-	SellerID    uuid.UUID      `json:"seller_id"`
-	ProductName string         `json:"product_name"`
-	Description string         `json:"description"`
-	BasePrice   pgtype.Numeric `json:"base_price"`
-	AuctionEnd  time.Time      `json:"auction_end"`
+	SellerID         uuid.UUID `json:"seller_id"`
+	ProductName      string    `json:"product_name"`
+	Description      string    `json:"description"`
+	BasePriceInCents int32     `json:"base_price_in_cents"`
+	AuctionEnd       time.Time `json:"auction_end"`
 }
 
 func (q *Queries) CreateProduct(ctx context.Context, arg CreateProductParams) (uuid.UUID, error) {
@@ -38,10 +37,32 @@ func (q *Queries) CreateProduct(ctx context.Context, arg CreateProductParams) (u
 		arg.SellerID,
 		arg.ProductName,
 		arg.Description,
-		arg.BasePrice,
+		arg.BasePriceInCents,
 		arg.AuctionEnd,
 	)
 	var id uuid.UUID
 	err := row.Scan(&id)
 	return id, err
+}
+
+const getProductById = `-- name: GetProductById :one
+SELECT id, seller_id, product_name, description, base_price_in_cents, auction_end, is_sold, created_at, updated_at FROM products
+WHERE id = $1
+`
+
+func (q *Queries) GetProductById(ctx context.Context, id uuid.UUID) (Product, error) {
+	row := q.db.QueryRow(ctx, getProductById, id)
+	var i Product
+	err := row.Scan(
+		&i.ID,
+		&i.SellerID,
+		&i.ProductName,
+		&i.Description,
+		&i.BasePriceInCents,
+		&i.AuctionEnd,
+		&i.IsSold,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
 }

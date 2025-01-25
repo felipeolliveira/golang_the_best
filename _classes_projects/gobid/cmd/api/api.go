@@ -14,6 +14,7 @@ import (
 	"github.com/felipeolliveira/golang_the_best/_classes_projects/gobid/internal/services"
 	"github.com/go-chi/chi/v5"
 	"github.com/google/uuid"
+	"github.com/gorilla/websocket"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/joho/godotenv"
 )
@@ -52,11 +53,20 @@ func main() {
 	sessionManager.Cookie.HttpOnly = true
 	sessionManager.Cookie.SameSite = http.SameSiteLaxMode
 
+	ws := websocket.Upgrader{
+		CheckOrigin: func(r *http.Request) bool {
+			return os.Getenv("GOBID_ENV") == "development"
+		},
+	}
+
 	api := api.Api{
 		Router:         chi.NewMux(),
 		UserService:    services.NewUserService(pool),
 		ProductService: services.NewProductService(pool),
+		BidsService:    services.NewBidsService(pool),
 		Session:        sessionManager,
+		WsUpgrader:     ws,
+		AuctionLobby:   services.NewAuctionLobby(),
 	}
 
 	api.BindRoutes()

@@ -8,25 +8,38 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/jackc/pgx/v5/pgtype"
 )
 
+type Bid struct {
+	ID               uuid.UUID `json:"id"`
+	ProductID        uuid.UUID `json:"product_id"`
+	BidderID         uuid.UUID `json:"bidder_id"`
+	BidAmountInCents int32     `json:"bid_amount_in_cents"`
+	CreatedAt        time.Time `json:"created_at"`
+}
+
 type Product struct {
-	ID          uuid.UUID      `json:"id"`
-	SellerID    uuid.UUID      `json:"seller_id"`
-	ProductName string         `json:"product_name"`
-	Description string         `json:"description"`
-	BasePrice   pgtype.Numeric `json:"base_price"`
-	AuctionEnd  time.Time      `json:"auction_end"`
-	IsSold      bool           `json:"is_sold"`
-	CreatedAt   time.Time      `json:"created_at"`
-	UpdatedAt   time.Time      `json:"updated_at"`
+	ID               uuid.UUID `json:"id"`
+	SellerID         uuid.UUID `json:"seller_id"`
+	ProductName      string    `json:"product_name"`
+	Description      string    `json:"description"`
+	BasePriceInCents int32     `json:"base_price_in_cents"`
+	AuctionEnd       time.Time `json:"auction_end"`
+	IsSold           bool      `json:"is_sold"`
+	CreatedAt        time.Time `json:"created_at"`
+	UpdatedAt        time.Time `json:"updated_at"`
 }
 
 type Session struct {
 	Token  string    `json:"token"`
 	Data   []byte    `json:"data"`
 	Expiry time.Time `json:"expiry"`
+}
+
+type SubscribeToken struct {
+	UserID uuid.UUID `json:"user_id"`
+	Token  uuid.UUID `json:"token"`
+	Exp    time.Time `json:"exp"`
 }
 
 type User struct {

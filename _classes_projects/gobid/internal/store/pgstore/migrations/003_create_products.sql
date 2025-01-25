@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS products (
   product_name TEXT NOT NULL,
   description TEXT NOT NULL,
 
-  base_price DECIMAL NOT NULL,
+  base_price_in_cents INT NOT NULL,
   auction_end TIMESTAMPTZ NOT NULL,
 
   is_sold BOOLEAN NOT NULL DEFAULT FALSE,

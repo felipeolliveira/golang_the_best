@@ -8,6 +8,10 @@ import (
 	"github.com/gorilla/csrf"
 )
 
+const (
+	SessionUserKey = "AuthenticatedUserId"
+)
+
 func (api *Api) handleGetCSRFToken(w http.ResponseWriter, r *http.Request) {
 	key := os.Getenv("GOBID_CSRF_KEY")
 
@@ -45,7 +49,7 @@ func (api *Api) csrfMiddleware(next http.Handler) http.Handler {
 
 func (api *Api) authMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if !api.Session.Exists(r.Context(), "AuthenticatedUserId") {
+		if !api.Session.Exists(r.Context(), SessionUserKey) {
 			jsonutils.EncodeJsonWithError(w, r, http.StatusUnauthorized, "Unauthorized")
 			return
 		}

@@ -56,7 +56,7 @@ func (api *Api) handleLoginUser(w http.ResponseWriter, r *http.Request) {
 		jsonutils.EncodeJsonWithError(w, r, http.StatusInternalServerError, "internal server error")
 	}
 
-	api.Session.Put(r.Context(), "AuthenticatedUserId", userId)
+	api.Session.Put(r.Context(), SessionUserKey, userId)
 	jsonutils.EncodeJson(w, r, http.StatusOK, map[string]any{
 		"message": "logged in",
 	})
@@ -69,7 +69,7 @@ func (api *Api) handleLogoutUser(w http.ResponseWriter, r *http.Request) {
 		jsonutils.EncodeJsonWithError(w, r, http.StatusInternalServerError, "internal server error")
 	}
 
-	api.Session.Remove(r.Context(), "AuthenticatedUserId")
+	api.Session.Remove(r.Context(), SessionUserKey)
 	jsonutils.EncodeJson(w, r, http.StatusOK, map[string]any{
 		"message": "logged out",
 	})

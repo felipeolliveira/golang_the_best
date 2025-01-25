@@ -11,10 +11,13 @@ type CreateProductReq struct {
 	AuctionEnd  time.Time `json:"auctionEnd"`
 	ProductName string    `json:"productName"`
 	Description string    `json:"description"`
-	BasePrise   float64   `json:"basePrice"`
+	BasePrise   int       `json:"basePriceInCents"`
 }
 
-const minAuctionDuration = 2 * time.Hour
+const (
+	minAuctionDuration  = 2 * time.Hour
+	maxBasePriceInCents = 100000000 // 1 million of money / 100 million of cents
+)
 
 func (req CreateProductReq) Valid(ctx context.Context) validator.Evaluator {
 	var eval validator.Evaluator
@@ -24,7 +27,8 @@ func (req CreateProductReq) Valid(ctx context.Context) validator.Evaluator {
 	eval.CheckField(validator.NotBlank(req.Description), "description", "this field cannot be blank")
 	eval.CheckField(validator.MinChars(req.Description, 10) && validator.MaxChars(req.Description, 255), "description", "this field must have between 10 and 255 characters")
 
-	eval.CheckField(req.BasePrise > 0, "basePrice", "this field must be greater than 0")
+	eval.CheckField(req.BasePrise <= maxBasePriceInCents, "basePriceInCents", "this field must be less than a million")
+	eval.CheckField(req.BasePrise > 0, "basePriceInCents", "this field must be greater than 0")
 
 	eval.CheckField(time.Until(req.AuctionEnd) >= minAuctionDuration, "auctionEnd", "auction must last at least 2 hours")
 
