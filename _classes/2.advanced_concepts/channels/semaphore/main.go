@@ -5,6 +5,13 @@ import (
 	"time"
 )
 
+// O Semáforo neste código é um mecanismo de controle de concorrência que limita o número de goroutines que podem acessar um recurso simultaneamente. Ele usa um channel bufferizado como implementação.
+// Pontos principais:
+//
+// 1. O channel bufferizado funciona como um contador - quando você cria com capacidade N, significa que N goroutines podem adquirir o semáforo simultaneamente
+// 2. Acquire() tenta enviar ao canal - se o canal estiver cheio, a goroutine espera
+// 3. Release() libera uma vaga no semáforo removendo um item do canal
+
 // Semaphore implementa um semáforo usando um channel bufferizado.
 // O channel atua como um contador de recursos disponíveis.
 type Semaphore struct {
