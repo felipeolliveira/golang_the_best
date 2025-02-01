@@ -7,14 +7,14 @@ import "fmt"
 // |-----------|-----------------------|---------------------|
 // | operação  | estados               | resultado           |
 // |-----------|-----------------------|---------------------|
-// |           | nil                   | Block(deadlock)     |
+// |           | nil                   | Block               |
 // | Read/     | Aberto & Não Vazio    | Valor               |
-// | Receive   | Aberto & Vazio        | Block(deadlock)     |
+// | Receive   | Aberto & Vazio        | Block               |
 // |           | Fechado               | ZeroValue, false    |
 // |           | Write Only            | Erro de compilação  |
 // |-----------|-----------------------|---------------------|
-// |           | nil                   | Block(deadlock)     |
-// | Write/    | Aberto & Cheio        | Block(deadlock)     |
+// |           | nil                   | Block               |
+// | Write/    | Aberto & Cheio        | Block               |
 // | Send      | Aberto & Não Cheio    | Envia valor         |
 // |           | Fechado               | panic!              |
 // |           | Write Only            | Erro de compilação  |
