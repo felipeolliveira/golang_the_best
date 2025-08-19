@@ -5,6 +5,8 @@
 * - `func Test[name]`: this prefix run test for specific functions
 *   - import "testing": default package to test
 *   - `(t *testing.T)`: this args add all testing functionality
+*   - testing has multiple functions to control a test
+*     - https://pkg.go.dev/testing#pkg-types
 *
 * Comparing, Matchers, Assertions, Mocks
 * - gotest.tools/assert: assertions, matchers
@@ -14,6 +16,8 @@
 * - go-cmp: deep comparing more than reflect
 * - gomega/ginkgo: descritive tests.
 *
+* Cache is automatic
+* - go clean --testcache
 *
 * */
 package introduction
