@@ -20,7 +20,7 @@
 * - go clean --testcache
 *
 * */
-package introduction
+package main
 
 import (
 	"testing"

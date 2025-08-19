@@ -1,4 +1,4 @@
-module 5.tests
+module 5.tests/introduction
 
 go 1.24.1
 
