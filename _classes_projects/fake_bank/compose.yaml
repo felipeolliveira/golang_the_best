@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:latest
+    restart: unless-stopped
+    ports:
+      - ${FAKE_BANK_DATABASE_PORT:-5432}:5432
+    environment:
+      POSTGRES_DB: ${FAKE_BANK_DATABASE_NAME}
+      POSTGRES_USER: ${FAKE_BANK_DATABASE_USER}
+      POSTGRES_PASSWORD: ${FAKE_BANK_DATABASE_PASSWORD}
+    networks:
+      - local
+
+volumes:
+  db:
+    driver: local
+
+networks:
+  local:
+
