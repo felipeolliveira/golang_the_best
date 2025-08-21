@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"os/exec"
 
 	"github.com/joho/godotenv"
@@ -13,9 +12,7 @@ func main() {
 		panic(err)
 	}
 
-	sqlcConfig := os.Getenv("SQLC_CONFIG")
-
-	cmd := exec.Command("sqlc", "generate", "-f", sqlcConfig)
+	cmd := exec.Command("sqlc", "generate", "-f", "internal", "store", "pgstore", "sqlc.yaml")
 
 	fmt.Println("Running SQLC generate:", cmd.String())
 

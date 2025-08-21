@@ -25,26 +25,15 @@ func (api *Api) handleGetCSRFToken(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *Api) csrfMiddleware(next http.Handler) http.Handler {
-	env := os.Getenv("GOBID_ENV")
 	key := os.Getenv("GOBID_CSRF_KEY")
 	isSecure := os.Getenv("GOBID_CSRF_SECURE") == "true"
 
-	switch {
-	case env == "development" && key != "":
-		middleware := csrf.Protect([]byte(key), csrf.Secure(isSecure))
-		return middleware(next)
-
-	case env == "production" && key != "":
-		middleware := csrf.Protect([]byte(key), csrf.Secure(true))
-		return middleware(next)
-
-	case env == "production" && key == "":
+	if key == "" {
 		panic("CSRF key is required in production environment")
 	}
 
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		next.ServeHTTP(w, r)
-	})
+	middleware := csrf.Protect([]byte(key), csrf.Secure(isSecure))
+	return middleware(next)
 }
 
 func (api *Api) authMiddleware(next http.Handler) http.Handler {

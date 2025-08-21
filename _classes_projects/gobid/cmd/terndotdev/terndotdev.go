@@ -12,7 +12,7 @@ func main() {
 		panic(err)
 	}
 
-	cmd := exec.Command("tern", "migrate")
+	cmd := exec.Command("tern", "migrate", "--config")
 
 	fmt.Println("Running migrations with command:", cmd.String())
 

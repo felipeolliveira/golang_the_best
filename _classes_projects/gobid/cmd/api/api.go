@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"slices"
 	"time"
 
 	"github.com/alexedwards/scs/pgxstore"
@@ -55,7 +56,16 @@ func main() {
 
 	ws := websocket.Upgrader{
 		CheckOrigin: func(r *http.Request) bool {
-			return os.Getenv("GOBID_ENV") == "development"
+			if os.Getenv("GOBID_CORS") == "true" {
+				// This variable should be fill with origins to allow
+				allowOrigins := []string{}
+				origin := r.Header.Get("Origin")
+
+				return slices.Contains(allowOrigins, origin)
+			}
+
+			//
+			return true
 		},
 	}
 
@@ -71,8 +81,14 @@ func main() {
 
 	api.BindRoutes()
 
-	fmt.Println("Starting server on port: 3080")
-	if err := http.ListenAndServe("localhost:3080", api.Router); err != nil {
+	port := os.Getenv("GOBID_APP_PORT")
+	if port == "" {
+		port = "8080"
+	}
+	serverPort := fmt.Sprintf(":%s", port)
+
+	fmt.Printf("Starting server on port %s\n", serverPort)
+	if err := http.ListenAndServe(serverPort, api.Router); err != nil {
 		panic(err)
 	}
 }
