@@ -1,0 +1,17 @@
+{
+  "AuthenticationConfiguration": {
+    "AccessRoleArn": "arn:aws:iam::123456789012:role/YourAccessRole"
+  },
+  "ImageConfiguration": {
+    "ImageIdentifier": "123456789012.dkr.ecr.us-west-2.amazonaws.com/your-image:latest",
+    "ImageRepositoryType": "ECR",
+    "ImageConfiguration": {
+      "Port": 3000,
+      "RuntimeEnvironmentVariables": {
+        "ENV_VAR_1": "value1",
+        "ENV_VAR_2": "value2"
+      }
+    },
+    "AutoDeploymentsEnable": false
+  }
+}

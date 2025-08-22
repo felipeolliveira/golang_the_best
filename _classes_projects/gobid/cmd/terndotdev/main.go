@@ -8,11 +8,16 @@ import (
 )
 
 func main() {
-	if err := godotenv.Load(); err != nil {
-		panic(err)
-	}
+	godotenv.Load()
 
-	cmd := exec.Command("tern", "migrate", "--config")
+	cmd := exec.Command(
+		"tern",
+		"migrate",
+		"--migrations",
+		"./internal/store/pgstore/migrations",
+		"--config",
+		"./internal/store/pgstore/migrations/tern.conf",
+	)
 
 	fmt.Println("Running migrations with command:", cmd.String())
 

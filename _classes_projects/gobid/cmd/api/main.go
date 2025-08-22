@@ -25,9 +25,7 @@ func init() {
 }
 
 func main() {
-	if err := godotenv.Load(); err != nil {
-		panic(err)
-	}
+	godotenv.Load()
 
 	ctx := context.Background()
 	connString := fmt.Sprintf(
