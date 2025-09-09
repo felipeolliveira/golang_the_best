@@ -35,8 +35,7 @@ func (c *LoanController) CreateLoan(ctx *gin.Context) {
 	}
 
 	if err := ctx.ShouldBindJSON(&request); err != nil {
-		slog.Error("failed to bind request body", "error", err)
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "invalid request body"})
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -69,12 +68,7 @@ func (c *LoanController) GetLoan(ctx *gin.Context) {
 }
 
 func (c *LoanController) GetAllLoans(ctx *gin.Context) {
-	loans, err := c.service.GetAllLoans()
-
-	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
+	loans := c.service.GetAllLoans()
 
 	ctx.JSON(http.StatusOK, loans)
 }
@@ -88,12 +82,7 @@ func (c *LoanController) GetUserLoans(ctx *gin.Context) {
 		return
 	}
 
-	loans, err := c.service.GetUserLoans(userId)
-
-	if err != nil {
-		ctx.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-		return
-	}
+	loans := c.service.GetUserLoans(userId)
 
 	ctx.JSON(http.StatusOK, loans)
 }

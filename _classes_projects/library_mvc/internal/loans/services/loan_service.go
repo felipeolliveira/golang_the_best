@@ -27,7 +27,7 @@ func NewLoanService(
 	}
 }
 
-func (s *LoanService) CreateLoan(bookId int64, userId int64) (*models.Loan, error) {
+func (s LoanService) CreateLoan(bookId int64, userId int64) (*models.Loan, error) {
 	book, err := s.bookService.GetBook(bookId)
 
 	if err != nil {
@@ -40,13 +40,13 @@ func (s *LoanService) CreateLoan(bookId int64, userId int64) (*models.Loan, erro
 		return nil, err
 	}
 
-	userLoans, err := s.loanRepository.GetActiveUserLoans(user.ID)
+	userLoans := s.loanRepository.GetActiveUserLoans(user.ID)
 
 	if len(userLoans) >= 0 {
 		return nil, errors.New("user has active loans")
 	}
 
-	bookLoans, err := s.loanRepository.GetActiveBookLoans(book.ID)
+	bookLoans := s.loanRepository.GetActiveBookLoans(book.ID)
 
 	if len(bookLoans) >= book.Quantity {
 		return nil, errors.New("no available copies for this book")
@@ -61,7 +61,7 @@ func (s *LoanService) CreateLoan(bookId int64, userId int64) (*models.Loan, erro
 
 	return s.loanRepository.CreateLoan(loan)
 }
-func (s *LoanService) ReturnLoan(loanId int64) error {
+func (s LoanService) ReturnLoan(loanId int64) error {
 	loan, err := s.loanRepository.GetLoanById(loanId)
 	if err != nil {
 		return errors.New("loan not found")
@@ -73,14 +73,15 @@ func (s *LoanService) ReturnLoan(loanId int64) error {
 	return s.loanRepository.ReturnLoan(loanId)
 }
 
-func (s *LoanService) GetAllLoans() ([]*models.Loan, error) {
+func (s LoanService) GetAllLoans() []*models.Loan {
 	return s.loanRepository.GetAllLoans()
 }
 
-func (s *LoanService) GetLoan(loanId int64) (*models.Loan, error) {
+func (s LoanService) GetLoan(loanId int64) (*models.Loan, error) {
 	return s.loanRepository.GetLoanById(loanId)
 }
 
-func (s *LoanService) GetUserLoans(userId int64) ([]*models.Loan, error) {
-	return s.loanRepository.GetActiveUserLoans(userId)
+func (s LoanService) GetUserLoans(userId int64) []*models.Loan {
+	loans := s.loanRepository.GetActiveUserLoans(userId)
+	return loans
 }

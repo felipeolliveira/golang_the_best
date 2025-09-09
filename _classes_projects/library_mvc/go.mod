@@ -1,6 +1,6 @@
 module github.com/felipeolliveira/golang_the_best/_classes_projects/library_mvc
 
-go 1.25.0
+go 1.25.1
 
 require github.com/gin-gonic/gin v1.10.1
 

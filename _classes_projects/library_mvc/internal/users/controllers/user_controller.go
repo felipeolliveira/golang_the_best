@@ -31,8 +31,7 @@ func (c *UserController) CreateUser(ctx *gin.Context) {
 	var user models.User
 
 	if err := ctx.ShouldBindJSON(&user); err != nil {
-		slog.Error("Failed to bind JSON", "error", err)
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -88,8 +87,7 @@ func (c *UserController) UpdateUser(ctx *gin.Context) {
 	var user models.User
 
 	if err := ctx.ShouldBindJSON(&user); err != nil {
-		slog.Error("Failed to bind JSON", "error", err)
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -100,7 +98,9 @@ func (c *UserController) UpdateUser(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, user)
+	updatedUser, _ := c.service.GetUser(id)
+
+	ctx.JSON(http.StatusOK, updatedUser)
 }
 
 func (c *UserController) DeleteUser(ctx *gin.Context) {

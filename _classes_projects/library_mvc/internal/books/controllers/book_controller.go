@@ -31,8 +31,7 @@ func (c *BookController) CreateBook(ctx *gin.Context) {
 	var book models.Book
 
 	if err := ctx.ShouldBindJSON(&book); err != nil {
-		slog.Error("Failed to bind JSON", "error", err)
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
@@ -88,8 +87,7 @@ func (c *BookController) UpdateBook(ctx *gin.Context) {
 	var book models.Book
 
 	if err := ctx.ShouldBindJSON(&book); err != nil {
-		slog.Error("Failed to bind JSON", "error", err)
-		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request body"})
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 

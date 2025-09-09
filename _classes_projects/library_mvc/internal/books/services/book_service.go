@@ -14,7 +14,7 @@ func NewBookService(bookRepository models.BookRepository) *BookService {
 	return &BookService{bookRepository: bookRepository}
 }
 
-func (s *BookService) CreateBook(book *models.Book) error {
+func (s BookService) CreateBook(book *models.Book) error {
 	foundBook, _ := s.bookRepository.GetBookByTitle(book.Title)
 
 	if foundBook != nil {
@@ -24,18 +24,18 @@ func (s *BookService) CreateBook(book *models.Book) error {
 	return s.bookRepository.CreateBook(book)
 }
 
-func (s *BookService) GetBook(id int64) (*models.Book, error) {
+func (s BookService) GetBook(id int64) (*models.Book, error) {
 	return s.bookRepository.GetBookById(id)
 }
 
-func (s *BookService) GetAllBooks() ([]*models.Book, error) {
+func (s BookService) GetAllBooks() ([]*models.Book, error) {
 	return s.bookRepository.GetAllBooks()
 }
 
-func (s *BookService) UpdateBook(id int64, book *models.Book) error {
+func (s BookService) UpdateBook(id int64, book *models.Book) error {
 	return s.bookRepository.UpdateBook(id, book)
 }
 
-func (s *BookService) DeleteBook(id int64) error {
+func (s BookService) DeleteBook(id int64) error {
 	return s.bookRepository.DeleteBook(id)
 }
